@@ -33,6 +33,7 @@ export const bookingSchema = gql`
     getBookings: [Booking!]!
     getBooking(id: ID!): Booking
     getMyBookings: [Booking!]!
+    getManagerBookings: [Booking!]!
   }
 
   extend type Mutation {
