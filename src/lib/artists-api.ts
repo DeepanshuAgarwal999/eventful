@@ -1,4 +1,25 @@
 
+export interface Artist {
+  id: string;
+  name: string;
+  genre: string;
+  genres: string[];
+  bio: string;
+  image?: string;
+  city: string;
+  location: string;
+  languages: string[];
+  feeRange: string;
+  price: number;
+  rating: number;
+  managerId: string;
+  manager: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  createdAt: string;
+}
 
 // Mock data - in a real app, this would fetch from a database
 const mockArtists: Artist[] = [
@@ -19,7 +40,7 @@ const mockArtists: Artist[] = [
     manager: {
       id: "2",
       name: "John Manager",
-      email: "john@example.com",
+      email: "john@example.com"
     },
     createdAt: new Date().toISOString(),
   },
@@ -40,7 +61,7 @@ const mockArtists: Artist[] = [
     manager: {
       id: "3",
       name: "Sarah Manager",
-      email: "sarah@example.com",
+      email: "sarah@example.com"
     },
     createdAt: new Date().toISOString(),
   },
@@ -61,7 +82,7 @@ const mockArtists: Artist[] = [
     manager: {
       id: "4",
       name: "Mike Manager",
-      email: "mike@example.com",
+      email: "mike@example.com"
     },
     createdAt: new Date().toISOString(),
   },
@@ -82,14 +103,14 @@ const mockArtists: Artist[] = [
     manager: {
       id: "5",
       name: "Alex Manager",
-      email: "alex@example.com",
+      email: "alex@example.com"
     },
     createdAt: new Date().toISOString(),
-  },
+  }
 ];
 
 // Simulate API delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Server-side function to get all artists (for getStaticProps)
 export async function getAllArtists(): Promise<Artist[]> {
@@ -109,9 +130,9 @@ export async function getArtistsWithRealTimeData(): Promise<{
   lastUpdated: string;
 }> {
   await delay(150);
-
+  
   // Simulate real-time data changes
-  const artistsWithRealTimeData = mockArtists.map((artist) => ({
+  const artistsWithRealTimeData = mockArtists.map(artist => ({
     ...artist,
     // Simulate slight rating changes
     rating: Math.round((artist.rating + (Math.random() - 0.5) * 0.2) * 10) / 10,
@@ -130,12 +151,12 @@ export async function getArtistStats(): Promise<{
   averageRating: number;
 }> {
   await delay(50);
-
+  
   const totalArtists = mockArtists.length;
   const averageRating = mockArtists.reduce((sum, artist) => sum + artist.rating, 0) / totalArtists;
-
+  
   return {
-    totalArtists: totalArtists * 125,
+    totalArtists: totalArtists * 125, 
     totalEvents: 1000,
     averageRating: Math.round(averageRating * 10) / 10,
   };
