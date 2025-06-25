@@ -1,27 +1,4 @@
-// Server-side API functions for fetching artists data
-// This replaces the GraphQL client-side queries for server-side rendering
 
-export interface Artist {
-  id: string;
-  name: string;
-  genre: string;
-  genres: string[];
-  bio: string;
-  image?: string;
-  city: string;
-  location: string;
-  languages: string[];
-  feeRange: string;
-  price: number;
-  rating: number;
-  managerId: string;
-  manager: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  createdAt: string;
-}
 
 // Mock data - in a real app, this would fetch from a database
 const mockArtists: Artist[] = [
