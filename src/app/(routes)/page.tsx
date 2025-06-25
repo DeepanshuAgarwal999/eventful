@@ -1,9 +1,11 @@
-
 import { Button } from "@/components/ui/button"
 import { Search, Calendar, Users, Star } from "lucide-react"
 import Link from "next/link"
 import { getFeaturedArtists, getArtistStats } from "@/lib/artists-api"
 import ArtistCard from "@/components/global/artists/artist-card"
+
+
+export const revalidate = 3600;
 
 const Home = async () => {
   // Fetching data directly in the server component as you mentioned in pdf.
