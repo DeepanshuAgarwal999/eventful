@@ -1,10 +1,16 @@
 
-import ArtistsList from "@/components/global/artists/artists-list"
 import { Button } from "@/components/ui/button"
 import { Search, Calendar, Users, Star } from "lucide-react"
 import Link from "next/link"
+import { getFeaturedArtists, getArtistStats } from "@/lib/artists-api"
+import ArtistCard from "@/components/global/artists/artist-card"
 
-const Home = () => {
+const Home = async () => {
+  // Fetching data directly in the server component as you mentioned in pdf.
+  const [featuredArtists, stats] = await Promise.all([
+    getFeaturedArtists(4),
+    getArtistStats(),
+  ]);
   return (
     <div className=" bg-white ">
       {/* Hero Section */}
@@ -36,21 +42,21 @@ const Home = () => {
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Users className="w-6 h-6 mr-2" />
-                  <span className="text-3xl font-bold">500+</span>
+                  <span className="text-3xl font-bold">{stats.totalArtists}+</span>
                 </div>
                 <p className="text-gray-300">Verified Artists</p>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Calendar className="w-6 h-6 mr-2" />
-                  <span className="text-3xl font-bold">1000+</span>
+                  <span className="text-3xl font-bold">{stats.totalEvents}+</span>
                 </div>
                 <p className="text-gray-300">Events Hosted</p>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Star className="w-6 h-6 mr-2" />
-                  <span className="text-3xl font-bold">4.9</span>
+                  <span className="text-3xl font-bold">{stats.averageRating}</span>
                 </div>
                 <p className="text-gray-300">Average Rating</p>
               </div>
@@ -66,8 +72,37 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Artists Section */}
-      <ArtistsList />
+      {/* Featured Artists Section */}
+      <section className="py-16 bg-gray-50" id="artists">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Featured Artists
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover talented performers ready to make your event unforgettable
+            </p>
+          </div>
+
+          {/* Artists Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {featuredArtists.map((artist) => (
+              <ArtistCard key={artist.id} artist={artist} />
+            ))}
+          </div>
+
+          {/* View All Artists Button */}
+          <div className="text-center">
+            <Link href="/artists">
+              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+                View All Artists
+                <Search className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Additional Sections */}
       <section className="py-16 bg-white">
